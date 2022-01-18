@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 import com.vodafone.jfsd.sort.BubbleSortString;
 
 public class FileActions {
+	/*
+	 * Class for file actions needed
+	 */
 	//name of directory
 	private final String directoryName = "workingDir";
 	private File directoryFile;
@@ -52,5 +55,26 @@ public class FileActions {
 
 	public String getDirectoryName() {
 		return directoryName;
+	}
+
+	public boolean createFile(String newFilename) throws Exception {
+		File file = new File(directoryName+"/"+newFilename);
+		if (file.createNewFile()) {return true;}
+		else {
+			if(file.exists()) {
+				throw new Exception("File "+newFilename+" already Existing");
+			} 
+		}
+		return true;
+	}
+
+	public boolean deleteFile(String deleteFilename) throws Exception {
+		boolean isDeleted = false;
+		File file = new File(directoryName+"/"+deleteFilename);
+		if(!file.exists()) 
+			throw new Exception("file \""+deleteFilename+"\" not existing");
+		if(file.delete())
+				isDeleted = true;
+		return isDeleted;
 	}
 }

@@ -8,8 +8,6 @@ public class startApplication {
 		MainMenu menu = new MainMenu();
 		menu = new MainMenu();
 		menu.showMenu();
-		
-
 	}
 
 }
