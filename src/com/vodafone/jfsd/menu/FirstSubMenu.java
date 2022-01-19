@@ -15,11 +15,12 @@ public class FirstSubMenu {
 	}
 	public void showMenu() {
 		int input = -1;
-		while (input != 3) {
+		while (input != 4) {
 			if (message != null) {System.out.println("Message: "+this.message);}
 			System.out.println("1. Add new file");
 			System.out.println("2. Delete file");
-			System.out.println("3. Return to main menu");
+			System.out.println("3. Search File");
+			System.out.println("4. Return to main menu");
 			try {
 				input = scanner.nextInt();
 			} catch (InputMismatchException e1) {
@@ -28,6 +29,7 @@ public class FirstSubMenu {
 				continue;
 			}
 			switch(input) {
+			//create file
 			case 1:
 				System.out.println("Enter filename to create:");
 				//create new scanner since re-using scanner not working
@@ -41,6 +43,7 @@ public class FirstSubMenu {
 					//log full exception somewhere
 				}	
 				break;
+			//delete file
 			case 2:
 				System.out.println("Enter filename to delete:");
 				Scanner scannerDeleteFilename = new Scanner(System.in);
@@ -53,7 +56,22 @@ public class FirstSubMenu {
 					//log full exception somewhere
 				}
 				break;
-			case 3: 
+			//search file
+			case 3:
+				System.out.println("Enter filename to search:");
+				Scanner scannerSearchFilename = new Scanner(System.in);
+				String searchFilename = scannerSearchFilename.nextLine();
+				try {
+					String fileInfo = fileActions.searchFile(searchFilename);
+					message="File found, FileInfo: "+fileInfo;
+				} catch (Exception e) {
+					message = e.getMessage();
+					//e.printStackTrace();
+					//log full exception somewhere
+				}
+				break;
+			//return to main menu
+			case 4: 
 				break;
 			}
 		}

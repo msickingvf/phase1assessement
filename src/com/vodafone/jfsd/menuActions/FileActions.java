@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.vodafone.jfsd.sort.BinarySearch;
 import com.vodafone.jfsd.sort.BubbleSortString;
 
 public class FileActions {
@@ -58,6 +59,7 @@ public class FileActions {
 	}
 
 	public boolean createFile(String newFilename) throws Exception {
+		checkDirExist();
 		File file = new File(directoryName+"/"+newFilename);
 		if (file.createNewFile()) {return true;}
 		else {
@@ -76,5 +78,18 @@ public class FileActions {
 		if(file.delete())
 				isDeleted = true;
 		return isDeleted;
+	}
+
+	public String searchFile(String searchFilename) throws Exception {
+		checkDirExist();
+		String[] files = getFiles();
+		sortStringList(files);
+		BinarySearch binarySearch = new BinarySearch();
+		int index = binarySearch.search(files, searchFilename);
+		if (index != -1) {
+			return files[index];
+		} else {
+			throw new Exception("File with name \""+searchFilename+"\" not found");
+		}
 	}
 }
